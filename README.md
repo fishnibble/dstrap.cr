@@ -1,6 +1,6 @@
 # dstrap
 
-`dstrap` is a simple script made to get the most useful information about your current working directory. Made with Crystal for Linux systems, it's the perfect supplement to commands like `ls -a` now acepting ARGS!.
+`dstrap` is a simple script made to get the most useful information about your current working directory. Made with Crystal for Linux systems, it's the perfect supplement to commands like `ls -a`. now acepting ARGS!.
 
 ### Installation:
 
