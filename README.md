@@ -14,7 +14,7 @@ mkdir -p bin && cd bin
 Move to the bin folder and copy the following installation script:
 
 ```bash
-wget -O dstrap.cr https://raw.githubusercontent.com/frissyn/dstrap.cr/main/dstrap.cr
+wget -O dstrap.cr https://raw.githubusercontent.com/fishnibble/dstrap.cr/main/dstrap.cr
 crystal build dstrap.cr -o dstrap --release --no-debug --progress
 rm dstrap.cr && chmod +x ./dstrap
 ```
