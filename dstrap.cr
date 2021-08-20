@@ -1,4 +1,5 @@
 require "colorize"
+require "option_parser"
 
 targets : Array(String) = ARGV.empty? ? [".", ".."] : ARGV
 emojis : Hash(String, String) = {
@@ -11,17 +12,35 @@ emojis : Hash(String, String) = {
 
 max_len : Int32 = 0
 
+ignore_dot = false
+
+OptionParser.parse do |parser|
+  parser.banner = "Usage: salute [arguments]"
+  parser.on("-id", "--ignore-dot", "ignores dot files") { ignore_dot = true }
+  parser.on("-h", "--help", "Show this help") do
+    puts parser
+    exit
+  end
+  parser.invalid_option do |flag|
+    STDERR.puts "ERROR: #{flag} is not a valid option."
+    STDERR.puts parser
+    exit(1)
+  end
+end
+
+
 targets.each { |t| Dir.children(t).each { |c| max_len = c.size unless c.size < max_len } }
+
 
 # Display current directory
 print("pwd".colorize(:red).mode(:bold))
 print(": #{File.basename(Dir.current)}/\n".colorize.mode(:bold))
-
 # List contents of each target
 targets.each do |dirname|
     print("\n#{dirname}/".colorize.mode(:bold))
-
     Dir.children("#{dirname}/").each do |f|
+
+        next if ignore_dot && f[0] == '.'
 
         file : File = File.new("#{dirname}/#{f}")
         info : File::Info = file.info
